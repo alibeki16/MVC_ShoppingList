@@ -128,6 +128,27 @@ namespace MVC_ShoppingList.Controllers
 
             return View(viewModel);
         }
+        public ActionResult AlisverisBaslasin(int id)
+        {
+            var shoppingList = db.shopping_list.SingleOrDefault(x => x.list_id == id);
+            if (shoppingList == null)
+            {
+                // Alışveriş listesi bulunamadı, hata işlemleri burada ele alınabilir
+                return RedirectToAction("DenemeSayfasi");
+            }
+            // Alışveriş listesine ait ürünleri sorgulayın
+            var shoppingListItems = db.shopping_list_items
+                .Where(x => x.list_id == id)
+                .ToList();
+
+            var viewModel = new ShoppingListViewModel
+            {
+                ShoppingList = shoppingList,
+                ShoppingListItems = shoppingListItems
+            };
+
+            return View(viewModel);
+        }
         //---------------------------------------------
         public ActionResult Listelerim()
         {

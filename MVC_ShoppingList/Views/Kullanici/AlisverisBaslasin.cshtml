@@ -1,0 +1,41 @@
+﻿@model MVC_ShoppingList.Models.ShoppingListViewModel
+
+@{
+    ViewBag.Title = "Detaylar";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<h5>Alışveriş Listesi Detayları</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Miktar</th>
+            <th>Açıklama</th>
+            <th>Tamamlandı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShoppingListItems)
+        {
+            <tr>
+                <td>@item.product_id</td>
+                <td>@item.quantity</td>
+                <td>
+                    <label>@item.description</label>
+                </td>
+                <td>
+                    <input type="checkbox" class="tamamlandi-checkbox" data-item-id="@item.item_id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <!-- Butona tıklanıldığında DenemeSayfasi'na yönlendirme yapacak form -->
+    <form action="@Url.Action("DenemeSayfasi", "Kullanici")" method="get">
+        <button type="submit" class="btn btn-success btn-block">
+            Alışveriş Tamamlandı
+        </button>
+    </form>
+</div>

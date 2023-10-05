@@ -257,6 +257,7 @@
     <Content Include="Views\Kullanici\ListelerimGoruntule.cshtml" />
     <Content Include="Views\Kullanici\Detaylar.cshtml" />
     <Content Include="Views\Kullanici\UrunuListeyeEkle.cshtml" />
+    <Content Include="Views\Kullanici\AlisverisBaslasin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

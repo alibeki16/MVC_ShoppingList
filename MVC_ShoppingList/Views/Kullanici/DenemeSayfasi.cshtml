@@ -169,6 +169,7 @@
                                 <p>@item.list_name</p>
                             </div>
                             <div class="right-content">
+                                <a href="@Url.Action("AlisverisBaslasin", new { id = @item.list_id })" class="btn btn-success btn-block"><i class="fas fa-shopping-cart"></i> Alisverise Basla</a>
                                 <a href="@Url.Action("Detaylar", new { id = @item.list_id })" class="btn btn-primary detaylar-button"><i class="fa-solid fa-bars"></i> Detaylar</a>
                                 <form action="@Url.Action("Sil", "Kullanici")" method="post" style="display: inline;">
                                     @Html.AntiForgeryToken() <!-- CSRF koruması için token ekleyin -->
