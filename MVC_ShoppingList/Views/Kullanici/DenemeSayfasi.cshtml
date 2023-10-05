@@ -157,27 +157,33 @@
             </div>
         </div>
         <h4>Listeleriniz</h4>
-
         <div class="kart">
             @if (Model != null)
             {
-                foreach (var item in Model.Shopping)
+                if (Session["ab_user_id"] != null)
                 {
-                    <div class="content-item">
-                        <div class="left-content">
-                            <p>@item.list_name</p>
+                    foreach (var item in Model.Shopping)
+                    {
+                        <div class="content-item">
+                            <div class="left-content">
+                                <p>@item.list_name</p>
+                            </div>
+                            <div class="right-content">
+                                <a href="@Url.Action("Detaylar", new { id = @item.list_id })" class="btn btn-primary detaylar-button"><i class="fa-solid fa-bars"></i> Detaylar</a>
+                                <form action="@Url.Action("Sil", "Kullanici")" method="post" style="display: inline;">
+                                    @Html.AntiForgeryToken() <!-- CSRF koruması için token ekleyin -->
+                                    <input type="hidden" name="id" value="@item.list_id" />
+                                    <button type="submit" class="btn btn-danger delete-button">
+                                        <i class="fa-solid fa-trash"></i> Sil
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="right-content">
-                            <a href="@Url.Action("Detaylar", new { id = @item.list_id })" class="btn btn-primary detaylar-button"><i class="fa-solid fa-bars"></i> Detaylar</a>
-                            <form action="@Url.Action("Sil", "Kullanici")" method="post" style="display: inline;">
-                                @Html.AntiForgeryToken() <!-- CSRF koruması için token ekleyin -->
-                                <input type="hidden" name="id" value="@item.list_id" />
-                                <button type="submit" class="btn btn-danger delete-button">
-                                    <i class="fa-solid fa-trash"></i> Sil
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                    }
+                }
+                else
+                {
+                    <p>Giriş yapmadan listeyi Görüntüleyemezsiniz</p>
                 }
             }
             else
@@ -185,20 +191,20 @@
                 <p>Herhangi bir listeniz bulunmamaktadir.</p>
             }
             <!-- BURAYA EKLİCEZ ŞİMDİ -->
-        <div class="content-item">
+            <div class="content-item">
 
-            <div>
-                
+                <div>
+
+                </div>
+                <div>
+                    <form action="@Url.Action("Listelerim", "Kullanici")" method="get">
+                        <input type="submit" value="Ekle" class="btn btn-success btn-block" />
+                    </form>
+                </div>
+                <div>
+
+                </div>
             </div>
-            <div>
-                <form action="@Url.Action("Listelerim", "Kullanici")" method="get">
-                    <input type="submit" value="Ekle" class="btn btn-success btn-block" />
-                </form>
-            </div>
-            <div>
-                
-            </div>
-        </div>
             <!-- BURAYA EKLİCEZ ŞİMDİ -->
         </div>
     </div>

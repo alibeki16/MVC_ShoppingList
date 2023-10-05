@@ -24,9 +24,7 @@
                     <input type="text" class="form-control" value="@item.description" />
                 </td>
                 <td>
-                    <a href="@Url.Action("Sil", "Kullanici", new { id = item.item_id })" class="btn btn-danger btn-sm">
-                        <i class="fas fa-trash"></i> Sil
-                    </a>
+                    <a href="@Url.Action("Listemden_esya_sil", "Kullanici", new { item_id = item.item_id, product_id = item.product_id })" class="btn btn-danger btn-sm">Sil</a>
                     <button class="btn btn-primary btn-sm kaydet-button" data-item-id="@item.item_id">
                         <i class="fas fa-save"></i> Kaydet
                     </button>

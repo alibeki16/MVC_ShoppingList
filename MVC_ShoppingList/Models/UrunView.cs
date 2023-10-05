@@ -16,5 +16,14 @@ namespace MVC_ShoppingList.Models
         public Nullable<int> product_fk_admin { get; set; }
         public int cat_id { get; set; }
         public string cat_name { get; set; }
+        public List<ShoppingList> ShoppingLists { get; set; }
+    }
+    public class ShoppingList
+    {
+        public int list_id { get; set; }
+        public string list_name { get; set; }
+        public int list_owner_id { get; set; }
+        public bool is_shopping_started { get; set; }
+        public bool is_shopping_completed { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace MVC_ShoppingList
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Kullanici", action = "DenemeSayfasi", id = UrlParameter.Optional }
             );
         }
     }

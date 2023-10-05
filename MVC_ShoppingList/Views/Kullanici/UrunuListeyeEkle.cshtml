@@ -1,0 +1,31 @@
+﻿@model List<MVC_ShoppingList.shopping_list>
+@{
+    ViewBag.Title = "UrunuListeyeEkle";
+}
+
+@using (Html.BeginForm("UrunuListeyeEkle", "Kullanici", FormMethod.Post))
+{
+    <input type="hidden" id="product_id" name="product_id" value="@Request.QueryString["product_id"]">
+
+    <div>
+        <label for="listNameDropdown">Alışveriş Listesi Seçin:</label>
+        <select id="listNameDropdown" name="selectedListName">
+            @foreach (var item in Model)
+            {
+                <option value="@item.list_id">@item.list_name</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="quantity">Ürün Miktarı:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required>
+    </div>
+
+    <div>
+        <label for="description">Ürün Açıklaması:</label>
+        <input type="text" id="description" name="description" required>
+    </div>
+
+    <button type="submit">Ürünü Listeye Ekle</button>
+}

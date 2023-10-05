@@ -29,10 +29,18 @@ namespace MVC_ShoppingList.Controllers
         }
         public ActionResult Kategori(int? id)
         {
-            var list = db.ab_product.Where(x => x.product_fk_cat == id)
+            int userId;
+            if (Session["ab_user_id"] != null && int.TryParse(Session["ab_user_id"].ToString(), out userId))
+            {
+                var list = db.ab_product.Where(x => x.product_fk_cat == id)
                                     .OrderByDescending(x => x.product_id)
                                     .ToList();
-            return View(list);
+                return View(list);
+            }
+            else
+            {
+                return RedirectToAction("GirisYap");
+            }
         }
         public ActionResult Urun(int? id)
         {
@@ -47,6 +55,37 @@ namespace MVC_ShoppingList.Controllers
             ad.cat_name = cat.cat_name;
 
             return View(ad);
+        }
+        public ActionResult UrunuListeyeEkle(int product_id)
+        {
+            var list = db.shopping_list.OrderByDescending(x => x.list_id).ToList();
+            return View(list);
+        }
+        [HttpPost]
+        public ActionResult UrunuListeyeEkle(int product_id, int selectedListName, int quantity, string description)
+        {
+                var newItem = new MVC_ShoppingList.shopping_list_items
+                {
+                    list_id = selectedListName, // Seçilen alışveriş listesinin list_id'si
+                    product_id = product_id, // URL'den gelen product_id
+                                             // Diğer özellikleri doldurun: list_owner_id, is_shopping_started, is_shopping_completed vb.
+                    quantity = quantity,
+                    description = description
+                };
+
+                db.shopping_list_items.Add(newItem);
+                db.SaveChanges();
+                return RedirectToAction("DenemeSayfasi"); // Başka bir sayfaya yönlendirilebilir.
+        }
+        public ActionResult Listemden_esya_sil(int item_id, int product_id)
+        {
+            var itemToDelete = db.shopping_list_items.SingleOrDefault(x => x.item_id == item_id && x.product_id == product_id);
+            if (itemToDelete != null)
+            {
+                db.shopping_list_items.Remove(itemToDelete);
+                db.SaveChanges();
+            }
+            return RedirectToAction("DenemeSayfasi");
         }
         // Liste silme işlemini gerçekleştiren eylem
         [HttpPost]
@@ -106,7 +145,7 @@ namespace MVC_ShoppingList.Controllers
             }
             else
             {
-                return RedirectToAction("Listelerim");
+                return RedirectToAction("DenemeSayfasi");
             }
         }
         [HttpPost]
@@ -153,7 +192,7 @@ namespace MVC_ShoppingList.Controllers
             {
 
                 Session["ab_user_id"] = ad.ab_user_id.ToString();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("DenemeSayfasi", "Kullanici");
             }
             else
             {
