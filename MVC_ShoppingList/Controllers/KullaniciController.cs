@@ -160,6 +160,14 @@ namespace MVC_ShoppingList.Controllers
             }
             return View(sonuclar.ToList()); // KATEGORİYE GÖRE ARAMADA CİDDİ SIKINTI VAR :(
         }
+        public ActionResult CikisYap()
+        {
+            Session.RemoveAll();
+            Session.Abandon();
+
+            return RedirectToAction("DenemeSayfasi");
+        }
+
         //---------------------------------------------
         public ActionResult Listelerim()
         {
@@ -213,7 +221,7 @@ namespace MVC_ShoppingList.Controllers
         public ActionResult GirisYap()
         {
             List<ab_category> li = db.ab_category.ToList();
-            ViewBag.categorylist = new SelectList(li, "cat_id", "cat_name");
+            ViewBag.categorylist = new SelectList(li, "cat_id", "cat_name"); 
             return View();
         }
         [HttpPost]

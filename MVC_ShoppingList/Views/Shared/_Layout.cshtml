@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <a href="#!">
+                    <a href="@Url.Action("DenemeSayfasi", "Kullanici")">
                         <img src="https://i.hizliresim.com/tfpmtf0.png" style="justify-content: center;" alt="Logo" />
                     </a>
                 </div>
@@ -137,22 +137,16 @@
                         {
 
                             <div>
-                                <button class="btn btn-link" style="color: white;">
+                                <a href="@Url.Action("DenemeSayfasi", "Kullanici")" class="btn btn-link" style="color: white;">
                                     <i class="fas fa-shopping-bag"></i>
-                                </button>
-                            </div>
-
-                            <div>
-                                <button class="btn btn-link" style="color: white;">
-                                    <i class="fas fa-car"></i>
-                                </button>
+                                </a>
                             </div>
 
                             <div>
                                 <div>
-                                    <button class="btn btn-link" style="color: white;">
+                                    <a href="@Url.Action("CikisYap", "Kullanici")" class="btn btn-link" style="color: white;">
                                         <i class="fas fa-user-circle"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         }
