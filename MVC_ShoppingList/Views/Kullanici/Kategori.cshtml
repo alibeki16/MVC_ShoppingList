@@ -1,0 +1,48 @@
+﻿@model List<MVC_ShoppingList.ab_product>
+
+@{
+    ViewBag.Title = "Kategori";
+}
+
+<style>
+    .cimg {
+        -webkit-transform: 5s;
+        transition: transform 5s;
+    }
+
+        .cimg:hover {
+            -webkit-transform: rotatez(360deg);
+        }
+</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View Category</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="height: 1150px; ">
+
+
+            <div class="col-lg-8 col-md-8">
+
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-4" style="height: 200px; margin-top: 100px">
+                                <img class="img img-responsive cimg" src="@Url.Content(item.product_image)" style="height: 100%; width: 100%; border-radius: 50px 50px 50px 50px" />
+                                <h4 style="color: #808080; font-family: 'Arial Rounded MT'; text-align: center"> @Html.ActionLink(@item.product_name, "Urun", new { id = @item.product_id })</h4>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+</body>
+</html>

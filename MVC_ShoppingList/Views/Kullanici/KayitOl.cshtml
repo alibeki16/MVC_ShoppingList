@@ -1,0 +1,110 @@
+﻿@model MVC_ShoppingList.ab_user
+@{
+    ViewBag.Title = "KayitOl";
+}
+
+<style>
+
+    .containerim {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 100px;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+        .container h1 {
+            text-align: center;
+            font-family: Britannic, sans-serif;
+            color: rgb(22,24,40);
+        }
+        
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group .input-group-addon {
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+            .form-group .input-group-addon .glyphicon {
+                color: #ccc;
+            }
+
+    .btn-register {
+        width: 100%;
+        padding: 10px;
+        background-color: rgb(22,24,40);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-register:hover {
+            background-color: rgb(22,24,50);
+        }
+
+    .error-message {
+        color: red;
+        text-align: center;
+    }
+</style>
+
+<div class="containerim">
+    @using (Html.BeginForm("KayitOl", "Kullanici", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <h1>Kayıt Ol</h1>
+
+        <div class="form-group">
+            <label for="ab_user_name">Ad</label>
+            @Html.TextBoxFor(x => x.ab_user_name, new { @class = "form-control", @placeholder = "Ad" })
+            <span class="error-message">@Html.ValidationMessageFor(x => x.ab_user_name)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="ab_user_surname">Soyad</label>
+            @Html.TextBoxFor(x => x.ab_user_surname, new { @class = "form-control", @placeholder = "Soyad" })
+            <span class="error-message">@Html.ValidationMessageFor(x => x.ab_user_surname)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="ab_user_email">Email</label>
+            @Html.TextBoxFor(x => x.ab_user_email, new { @class = "form-control", @placeholder = "Email" })
+            <span class="error-message">@Html.ValidationMessageFor(x => x.ab_user_email)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="ab_user_password">Şifre</label>
+            @Html.PasswordFor(x => x.ab_user_password, new { @class = "form-control", @placeholder = "Şifre" })
+            <span class="error-message">@Html.ValidationMessageFor(x => x.ab_user_password)</span>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Şifre Tekrar</label>
+            @Html.Password("confirmPassword", null, new { @class = "form-control", @placeholder = "Şifre Tekrar" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Kayıt Ol" class="btn btn-register" />
+        </div>
+
+        <div class="form-group">
+            <p class="error-message">@ViewBag.error</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(241,243,244);
+        }
+
+        .headerim {
+            background-color: rgb(22,24,40);
+            color: #fff;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header img {
+            height: auto;
+        }
+
+        .search-bar {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            border-radius: 5px;
+            border: 1px solid rgb(58,59,70); /* Çerçeve ekleme */
+        }
+
+            .search-bar input[type="search"] {
+                flex: 1;
+                border: none;
+                border-radius: 5px;
+                padding: 10px;
+                background-color: transparent;
+                color: #a7a4a4;
+            }
+
+        .search-icon {
+            font-size: 14px;
+            color: white;
+            background-color: rgb(42,151,125);
+            padding: 18px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .category-dropdown {
+            margin-right: 10px;
+            font-size: 15px;
+        }
+
+            .category-dropdown select {
+                background-color: rgb(58,59,70);
+                color: #808080;
+                border: none;
+                border-radius: 4px;
+                border-bottom-right-radius: 0px;
+                border-top-right-radius: 0px;
+                padding: 14px;
+            }
+
+        .register-login {
+            margin-right: 10px; /* Seçenekler arasındaki boşluğu ayarlar */
+        }
+
+            .register-login a {
+                text-decoration: none; /* Bağlantı altı çizgisini kaldırır */
+                color: white; /* Metin rengini beyaz yapar */
+                font-weight: bold; /* Metin kalın yapar */
+            }
+
+                .register-login a:hover {
+                    text-decoration: underline; /* Farenin üzerine gelince altı çizgi ekler */
+                }
+    </style>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ASP.NET Uygulamam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="headerim">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <a href="#!">
+                        <img src="https://i.hizliresim.com/tfpmtf0.png" style="justify-content: center;" alt="Logo" />
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="search-bar">
+                        <div class="category-dropdown">
+                            <select>
+                                <option value="kategori1">Kategori 1</option>
+                                <option value="kategori2">Kategori 2</option>
+                                <option value="kategori3">Kategori 3</option>
+                            </select>
+                        </div>
+                        <input autocomplete="off" type="search" placeholder="Aramak istediğiniz ürün.." class="form-control rounded">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex justify-content-end align-items-center">
+                    <div class="d-flex">
+                        @if (Session["ab_user_id"] == null)
+                        {
+                            <div class="register-login">
+                                @Html.ActionLink("Kayıt Ol", "KayitOl", "Kullanici")
+                            </div>
+                            <div class="register-login">
+                                @Html.ActionLink("Giriş Yap", "GirisYap", "Kullanici")
+                            </div>
+                        }
+                        else
+                        {
+
+                        <div>
+                            <button class="btn btn-link" style="color: white;">
+                            <i class="fas fa-shopping-bag"></i>
+                            </button>
+                            </div>
+
+                            <div>
+                            <button class="btn btn-link" style="color: white;">
+                            <i class="fas fa-car"></i>
+                            </button>
+                            </div>
+
+                            <div>
+                            <div>
+                            <button class="btn btn-link" style="color: white;">
+                            <i class="fas fa-user-circle"></i>
+                                </button>
+                            </div>
+                            </div>
+                        }
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: left;"> <img src="https://mapas.mk/wp-content/uploads/2021/08/za-clenovite-1920x300.jpg" alt="Rastgele Resim" height="300" width="1920"></div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Uygulamam</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

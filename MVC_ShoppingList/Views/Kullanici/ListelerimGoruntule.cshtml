@@ -1,0 +1,55 @@
+﻿<style>
+    /* Liste adını sola hizala */
+    .list-name {
+        text-align: left;
+    }
+
+    /* Detaylar butonunu sağa hizala */
+    .details-button {
+        text-align: right;
+    }
+</style>
+
+@model List<MVC_ShoppingList.shopping_list>
+
+@{
+    ViewBag.Title = "Listelerim";
+}
+
+<div class="container">
+    <h2>Listelerim</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                @if (Model != null && Model.Any())
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="list-name">Liste Adı</th>
+                                <th class="details-button"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="list-name">
+                                        @item.list_name
+                                    </td>
+                                    <td class="details-button">
+                                        <a href="@Url.Action("ListeDetaylari", "Kullanici", new { id = item.list_id })" class="btn btn-primary">Detaylar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Henüz liste yok.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

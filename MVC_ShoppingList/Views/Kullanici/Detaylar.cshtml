@@ -1,0 +1,51 @@
+﻿@model MVC_ShoppingList.Models.ShoppingListViewModel
+
+@{
+    ViewBag.Title = "Detaylar";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<h5>Alışveriş Listesi Detayları</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Miktar</th>
+            <th>Açıklama</th>
+            <th>Silme Opsiyonu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShoppingListItems)
+        {
+            <tr>
+                <td>@item.product_id</td>
+                <td>@item.quantity</td>
+                <td>
+                    <input type="text" class="form-control" value="@item.description" />
+                </td>
+                <td>
+                    <a href="@Url.Action("Sil", "Kullanici", new { id = item.item_id })" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Sil
+                    </a>
+                    <button class="btn btn-primary btn-sm kaydet-button" data-item-id="@item.item_id">
+                        <i class="fas fa-save"></i> Kaydet
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    // Kaydet düğmelerine tıklama işlevi ekleyin
+    $(".kaydet-button").click(function () {
+        var itemId = $(this).data("item-id");
+        var description = $(this).closest("tr").find("input[type='text']").val();
+
+        // ListeUrunGuncelle eylemini çağırın ve gerekli bilgileri gönderin
+        $.post("@Url.Action("ListeUrunGuncelle", "Kullanici")", { id: itemId, description: description }, function (data) {
+            // İşlem tamamlandığında burada yapılacak işlemleri ekleyebilirsiniz
+            // Örneğin, bir mesaj görüntüleme veya sayfayı yenileme gibi işlemler
+        });
+    });
+</script>

@@ -1,0 +1,55 @@
+﻿@model MVC_ShoppingList.Models.UrunView
+@{
+    ViewBag.Title = "Urun";
+}
+
+<style>
+    td {
+        padding: 20px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-8 col-md-8">
+        <div>
+            <h1>@Model.product_name <small>AD-ID:@Model.product_id</small></h1>
+        </div>
+
+        <img src="@Url.Content(@Model.product_image)" style="width:800px; height:450px" />
+
+        <div>
+            <h4>Açıklama: </h4>
+            <p>@Model.product_desc</p>
+        </div>
+
+        <table>
+            <tr>
+                <td>Ücret: </td>
+                <td>@Model.product_price</td>
+            </tr>
+            <tr>
+                <td>Kategorisi: </td>
+                <td>@Model.cat_name</td>
+            </tr>
+        </table>
+
+        @if (Session["ab_user_id"] != null)
+        {
+            <div>
+                <h4>Ürünü Alışveriş Listesine Ekleyin</h4>
+                <form action="@Url.Action("Example", "Kullanici")" method="post">
+                    <input type="hidden" name="product_id" value="@Model.product_id" />
+                    <label for="list_id">Alışveriş Listesi Seçin:</label>
+                    <br />
+                    <label for="quantity">Miktar:</label>
+                    <input type="number" name="quantity" id="quantity" />
+                    <br />
+                    <label for="description">Açıklama:</label>
+                    <input type="text" name="description" id="description" />
+                    <br />
+                    <input type="submit" value="Ekle" class="btn btn-success" />
+                </form>
+            </div>
+        }
+    </div>
+</div>

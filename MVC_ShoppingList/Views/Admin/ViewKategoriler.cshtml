@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MVC_ShoppingList.ab_category>
+
+@{
+    ViewBag.Title = "Kategoriler";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View Category</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+
+        <div class="row" style="margin-top: 20px;">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-4" style="margin-top: 20px;">
+                        <img src="@Url.Content(item.cat_image)" style="width:100%; border-radius: 10px;" />
+                        <h4 style="color:#808080; font-family:'Arial Rounded MT';text-align:center">@item.cat_name</h4>
+                        <div style="text-align:center;">
+                            <a href="@Url.Action("KSil", new { id = item.cat_id })" class="btn btn-danger btn-sm">Sil</a>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-lg-12">
+                    <p>No categories found.</p>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿@model MVC_ShoppingList.shopping_list
+
+@{
+    ViewBag.Title = "Kategori";
+}
+
+@using (Html.BeginForm("Listelerim", "Kullanici", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<div class="insidebox">
+    <div> <h1>Liste Ekle</h1></div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+            @Html.TextBoxFor(x => x.list_name, new { @class = "form-control", @placeholder = "Username" })
+        </div>
+        <span style="color:red">   @Html.ValidationMessageFor(x => x.list_name) </span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Ekle" class="btn btn-success btn-block" />
+    </div>
+    <div class="form-group">
+        <p style="color:red">@ViewBag.error</p>
+    </div>
+    <div class="form-group">
+        <!-- "Listelerim" butonu ekleyin ve ilgili action'a yönlendirin -->
+        <a href="@Url.Action("ListelerimGoruntule", "Kullanici")" class="btn btn-primary">Listelerim</a>
+    </div>
+</div>
+}

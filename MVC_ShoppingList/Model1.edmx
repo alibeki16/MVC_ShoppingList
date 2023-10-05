@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShoppingCartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ab_admin">
+          <Key>
+            <PropertyRef Name="ab_admin_id" />
+          </Key>
+          <Property Name="ab_admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ab_admin_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_admin_surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_admin_full_name" Type="nvarchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="ab_admin_mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_admin_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ab_category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cat_fk_ad" Type="int" />
+        </EntityType>
+        <EntityType Name="ab_product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_image" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="product_desc" Type="nvarchar(max)" />
+          <Property Name="product_price" Type="int" />
+          <Property Name="product_fk_cat" Type="int" />
+          <Property Name="product_fk_admin" Type="int" />
+        </EntityType>
+        <EntityType Name="ab_user">
+          <Key>
+            <PropertyRef Name="ab_user_id" />
+          </Key>
+          <Property Name="ab_user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ab_user_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_user_surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_user_full_name" Type="nvarchar" MaxLength="101" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="ab_user_email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ab_user_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shopping_list">
+          <Key>
+            <PropertyRef Name="list_id" />
+          </Key>
+          <Property Name="list_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="list_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="list_owner_id" Type="int" Nullable="false" />
+          <Property Name="is_shopping_started" Type="bit" />
+          <Property Name="is_shopping_completed" Type="bit" />
+        </EntityType>
+        <EntityType Name="shopping_list_items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="list_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__ab_catego__cat_f__3B75D760">
+          <End Role="ab_admin" Type="Self.ab_admin" Multiplicity="0..1" />
+          <End Role="ab_category" Type="Self.ab_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_admin">
+              <PropertyRef Name="ab_admin_id" />
+            </Principal>
+            <Dependent Role="ab_category">
+              <PropertyRef Name="cat_fk_ad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ab_produc__produ__4316F928">
+          <End Role="ab_category" Type="Self.ab_category" Multiplicity="0..1" />
+          <End Role="ab_product" Type="Self.ab_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="ab_product">
+              <PropertyRef Name="product_fk_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ab_produc__produ__440B1D61">
+          <End Role="ab_admin" Type="Self.ab_admin" Multiplicity="0..1" />
+          <End Role="ab_product" Type="Self.ab_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_admin">
+              <PropertyRef Name="ab_admin_id" />
+            </Principal>
+            <Dependent Role="ab_product">
+              <PropertyRef Name="product_fk_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingCartModelStoreContainer">
+          <EntitySet Name="ab_admin" EntityType="Self.ab_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ab_category" EntityType="Self.ab_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ab_product" EntityType="Self.ab_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ab_user" EntityType="Self.ab_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shopping_list" EntityType="Self.shopping_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shopping_list_items" EntityType="Self.shopping_list_items" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ab_catego__cat_f__3B75D760" Association="Self.FK__ab_catego__cat_f__3B75D760">
+            <End Role="ab_admin" EntitySet="ab_admin" />
+            <End Role="ab_category" EntitySet="ab_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ab_produc__produ__4316F928" Association="Self.FK__ab_produc__produ__4316F928">
+            <End Role="ab_category" EntitySet="ab_category" />
+            <End Role="ab_product" EntitySet="ab_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ab_produc__produ__440B1D61" Association="Self.FK__ab_produc__produ__440B1D61">
+            <End Role="ab_admin" EntitySet="ab_admin" />
+            <End Role="ab_product" EntitySet="ab_product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShoppingCartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ab_admin">
+          <Key>
+            <PropertyRef Name="ab_admin_id" />
+          </Key>
+          <Property Name="ab_admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ab_admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_admin_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_admin_full_name" Type="String" MaxLength="101" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ab_admin_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_admin_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ab_category" Relationship="Self.FK__ab_catego__cat_f__3B75D760" FromRole="ab_admin" ToRole="ab_category" />
+          <NavigationProperty Name="ab_product" Relationship="Self.FK__ab_produc__produ__440B1D61" FromRole="ab_admin" ToRole="ab_product" />
+        </EntityType>
+        <EntityType Name="ab_category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cat_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cat_fk_ad" Type="Int32" />
+          <NavigationProperty Name="ab_admin" Relationship="Self.FK__ab_catego__cat_f__3B75D760" FromRole="ab_category" ToRole="ab_admin" />
+          <NavigationProperty Name="ab_product" Relationship="Self.FK__ab_produc__produ__4316F928" FromRole="ab_category" ToRole="ab_product" />
+        </EntityType>
+        <EntityType Name="ab_product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="product_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="product_price" Type="Int32" />
+          <Property Name="product_fk_cat" Type="Int32" />
+          <Property Name="product_fk_admin" Type="Int32" />
+          <NavigationProperty Name="ab_admin" Relationship="Self.FK__ab_produc__produ__440B1D61" FromRole="ab_product" ToRole="ab_admin" />
+          <NavigationProperty Name="ab_category" Relationship="Self.FK__ab_produc__produ__4316F928" FromRole="ab_product" ToRole="ab_category" />
+        </EntityType>
+        <EntityType Name="ab_user">
+          <Key>
+            <PropertyRef Name="ab_user_id" />
+          </Key>
+          <Property Name="ab_user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ab_user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_user_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_user_full_name" Type="String" MaxLength="101" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ab_user_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ab_user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shopping_list">
+          <Key>
+            <PropertyRef Name="list_id" />
+          </Key>
+          <Property Name="list_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="list_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="list_owner_id" Type="Int32" Nullable="false" />
+          <Property Name="is_shopping_started" Type="Boolean" />
+          <Property Name="is_shopping_completed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="shopping_list_items">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="list_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__ab_catego__cat_f__3B75D760">
+          <End Role="ab_admin" Type="Self.ab_admin" Multiplicity="0..1" />
+          <End Role="ab_category" Type="Self.ab_category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_admin">
+              <PropertyRef Name="ab_admin_id" />
+            </Principal>
+            <Dependent Role="ab_category">
+              <PropertyRef Name="cat_fk_ad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ab_produc__produ__440B1D61">
+          <End Role="ab_admin" Type="Self.ab_admin" Multiplicity="0..1" />
+          <End Role="ab_product" Type="Self.ab_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_admin">
+              <PropertyRef Name="ab_admin_id" />
+            </Principal>
+            <Dependent Role="ab_product">
+              <PropertyRef Name="product_fk_admin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ab_produc__produ__4316F928">
+          <End Role="ab_category" Type="Self.ab_category" Multiplicity="0..1" />
+          <End Role="ab_product" Type="Self.ab_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ab_category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="ab_product">
+              <PropertyRef Name="product_fk_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShoppingCartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ab_admin" EntityType="Self.ab_admin" />
+          <EntitySet Name="ab_category" EntityType="Self.ab_category" />
+          <EntitySet Name="ab_product" EntityType="Self.ab_product" />
+          <EntitySet Name="ab_user" EntityType="Self.ab_user" />
+          <EntitySet Name="shopping_list" EntityType="Self.shopping_list" />
+          <EntitySet Name="shopping_list_items" EntityType="Self.shopping_list_items" />
+          <AssociationSet Name="FK__ab_catego__cat_f__3B75D760" Association="Self.FK__ab_catego__cat_f__3B75D760">
+            <End Role="ab_admin" EntitySet="ab_admin" />
+            <End Role="ab_category" EntitySet="ab_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ab_produc__produ__440B1D61" Association="Self.FK__ab_produc__produ__440B1D61">
+            <End Role="ab_admin" EntitySet="ab_admin" />
+            <End Role="ab_product" EntitySet="ab_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ab_produc__produ__4316F928" Association="Self.FK__ab_produc__produ__4316F928">
+            <End Role="ab_category" EntitySet="ab_category" />
+            <End Role="ab_product" EntitySet="ab_product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShoppingCartModelStoreContainer" CdmEntityContainer="ShoppingCartEntities">
+          <EntitySetMapping Name="ab_admin">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ab_admin">
+              <MappingFragment StoreEntitySet="ab_admin">
+                <ScalarProperty Name="ab_admin_id" ColumnName="ab_admin_id" />
+                <ScalarProperty Name="ab_admin_name" ColumnName="ab_admin_name" />
+                <ScalarProperty Name="ab_admin_surname" ColumnName="ab_admin_surname" />
+                <ScalarProperty Name="ab_admin_full_name" ColumnName="ab_admin_full_name" />
+                <ScalarProperty Name="ab_admin_mail" ColumnName="ab_admin_mail" />
+                <ScalarProperty Name="ab_admin_password" ColumnName="ab_admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ab_category">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ab_category">
+              <MappingFragment StoreEntitySet="ab_category">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="cat_image" ColumnName="cat_image" />
+                <ScalarProperty Name="cat_fk_ad" ColumnName="cat_fk_ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ab_product">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ab_product">
+              <MappingFragment StoreEntitySet="ab_product">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_image" ColumnName="product_image" />
+                <ScalarProperty Name="product_desc" ColumnName="product_desc" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_fk_cat" ColumnName="product_fk_cat" />
+                <ScalarProperty Name="product_fk_admin" ColumnName="product_fk_admin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ab_user">
+            <EntityTypeMapping TypeName="ShoppingCartModel.ab_user">
+              <MappingFragment StoreEntitySet="ab_user">
+                <ScalarProperty Name="ab_user_id" ColumnName="ab_user_id" />
+                <ScalarProperty Name="ab_user_name" ColumnName="ab_user_name" />
+                <ScalarProperty Name="ab_user_surname" ColumnName="ab_user_surname" />
+                <ScalarProperty Name="ab_user_full_name" ColumnName="ab_user_full_name" />
+                <ScalarProperty Name="ab_user_email" ColumnName="ab_user_email" />
+                <ScalarProperty Name="ab_user_password" ColumnName="ab_user_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shopping_list">
+            <EntityTypeMapping TypeName="ShoppingCartModel.shopping_list">
+              <MappingFragment StoreEntitySet="shopping_list">
+                <ScalarProperty Name="list_id" ColumnName="list_id" />
+                <ScalarProperty Name="list_name" ColumnName="list_name" />
+                <ScalarProperty Name="list_owner_id" ColumnName="list_owner_id" />
+                <ScalarProperty Name="is_shopping_started" ColumnName="is_shopping_started" />
+                <ScalarProperty Name="is_shopping_completed" ColumnName="is_shopping_completed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shopping_list_items">
+            <EntityTypeMapping TypeName="ShoppingCartModel.shopping_list_items">
+              <MappingFragment StoreEntitySet="shopping_list_items">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="list_id" ColumnName="list_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

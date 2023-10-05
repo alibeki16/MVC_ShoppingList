@@ -1,0 +1,99 @@
+﻿@model MVC_ShoppingList.ab_user
+@{
+    ViewBag.Title = "GirisYap";
+}
+
+<style>
+    .containerim {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 100px;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    .container h1 {
+        text-align: center;
+        font-family: Britannic, sans-serif;
+        color: rgb(22,24,40);
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group .input-group-addon {
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+
+            .form-group .input-group-addon .glyphicon {
+                color: #ccc;
+            }
+
+    .btn-login {
+        width: 100%;
+        padding: 10px;
+        background-color: rgb(22,24,40);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-login:hover {
+            background-color: rgb(22,24,40);
+        }
+
+    .error-message {
+        color: red;
+        text-align: center;
+    }
+</style>
+
+<div class="containerim">
+    @using (Html.BeginForm())
+    {
+        <h1>Kullanıcı Girişi</h1>
+
+        <div class="form-group">
+            <label for="ab_user_email">Email</label>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                @Html.TextBoxFor(x => x.ab_user_email, new { @class = "form-control", @placeholder = "Email" })
+            </div>
+            @Html.ValidationMessageFor(x => x.ab_user_email, "", new { @class = "error-message" })
+        </div>
+
+        <div class="form-group">
+            <label for="ab_user_password">Şifre</label>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                @Html.PasswordFor(x => x.ab_user_password, new { @class = "form-control", @placeholder = "Şifre" })
+            </div>
+            @Html.ValidationMessageFor(x => x.ab_user_password, "", new { @class = "error-message" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Giriş Yap" class="btn btn-login" />
+        </div>
+
+        <div class="form-group">
+            <p class="error-message">@ViewBag.error</p>
+        </div>
+    }
+</div>
