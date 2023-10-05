@@ -147,7 +147,7 @@
                         }
                         else
                         {
-                        <p>Herhangi bir kategori bulunmamakta.</p>
+                        <p>Herhangi bir kategori bulunmamakta Admin Girisi Yapip Kategori Ekleyin /Admin/Giris.</p>
                         }
 
                     </div>
@@ -192,22 +192,26 @@
                 <p>Herhangi bir listeniz bulunmamaktadir.</p>
             }
             <!-- BURAYA EKLİCEZ ŞİMDİ -->
-            <div class="content-item">
+            @if (Session["ab_user_id"] != null)
+            {
+                <div class="content-item">
 
-                <div>
+                    <div>
 
-                </div>
-                <div>
-                    <form action="@Url.Action("Listelerim", "Kullanici")" method="get">
-                        <input type="submit" value="Ekle" class="btn btn-success btn-block" />
-                    </form>
-                </div>
-                <div>
+                    </div>
+                    <div>
+                        <form action="@Url.Action("Listelerim", "Kullanici")" method="get">
+                            <input type="submit" value="Ekle" class="btn btn-success btn-block" />
+                        </form>
+                    </div>
 
+                    <div>
+
+                    </div>
                 </div>
+                <!-- BURAYA EKLİCEZ ŞİMDİ -->
+            }
             </div>
-            <!-- BURAYA EKLİCEZ ŞİMDİ -->
-        </div>
     </div>
 </body>
 
