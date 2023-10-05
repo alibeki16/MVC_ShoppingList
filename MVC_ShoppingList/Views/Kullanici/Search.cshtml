@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MVC_ShoppingList.ab_product>
+
+@{
+
+}
+
+<h2>Arama Sonuçları</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün Adı</th>
+                <th>Kategori</th>
+                <th>Açıklama</th>
+                <th>Fiyat</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.product_name</td>
+                    <td>@product.ab_category.cat_name</td> <!-- Ürünün kategori adını alıyoruz -->
+                    <td>@product.product_desc</td>
+                    <td>@product.product_price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Arama sonuçları bulunamadı.</p>
+}

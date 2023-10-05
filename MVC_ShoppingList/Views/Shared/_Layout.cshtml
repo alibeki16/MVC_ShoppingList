@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    var db = new ShoppingCartEntities(); // GEÇİCİ ÇÖZÜM
+    var kategoriler = db.ab_category.ToList();
+}
+
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -52,7 +58,7 @@
 
         .category-dropdown {
             margin-right: 10px;
-            font-size: 15px;
+            font-size: 18px;
         }
 
             .category-dropdown select {
@@ -99,17 +105,21 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="search-bar">
-                        <div class="category-dropdown">
-                            <select>
-                                <option value="kategori1">Kategori 1</option>
-                                <option value="kategori2">Kategori 2</option>
-                                <option value="kategori3">Kategori 3</option>
-                            </select>
+                    <form action="@Url.Action("Search", "Kullanici")" method="get">
+                        <div class="search-bar">
+                            <div class="category-dropdown" name="kategori">
+                                <select>
+                                    @foreach (var kategori in kategoriler)
+                                    {
+                                        <option value="@kategori.cat_id">@kategori.cat_name</option>
+                                    }
+                                </select>
+                            </div>
+                            <input name="aramaTerimi" autocomplete="off" type="search" placeholder="Aramak istediğiniz ürün.." class="form-control rounded">
+                            <button type="submit" class="fas fa-search search-icon">
+                            </button>
                         </div>
-                        <input autocomplete="off" type="search" placeholder="Aramak istediğiniz ürün.." class="form-control rounded">
-                        <i class="fas fa-search search-icon"></i>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="col-md-4 d-flex justify-content-end align-items-center">
@@ -126,27 +136,27 @@
                         else
                         {
 
-                        <div>
-                            <button class="btn btn-link" style="color: white;">
-                            <i class="fas fa-shopping-bag"></i>
-                            </button>
-                            </div>
-
                             <div>
-                            <button class="btn btn-link" style="color: white;">
-                            <i class="fas fa-car"></i>
-                            </button>
-                            </div>
-
-                            <div>
-                            <div>
-                            <button class="btn btn-link" style="color: white;">
-                            <i class="fas fa-user-circle"></i>
+                                <button class="btn btn-link" style="color: white;">
+                                    <i class="fas fa-shopping-bag"></i>
                                 </button>
                             </div>
+
+                            <div>
+                                <button class="btn btn-link" style="color: white;">
+                                    <i class="fas fa-car"></i>
+                                </button>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <button class="btn btn-link" style="color: white;">
+                                        <i class="fas fa-user-circle"></i>
+                                    </button>
+                                </div>
                             </div>
                         }
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

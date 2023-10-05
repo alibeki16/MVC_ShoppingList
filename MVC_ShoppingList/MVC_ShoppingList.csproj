@@ -165,6 +165,7 @@
     <Compile Include="Models\BirlesikKategoriUrunView.cs" />
     <Compile Include="Models\KategorilerView.cs" />
     <Compile Include="Models\ShoppingListViewModel.cs" />
+    <Compile Include="Models\UrunFiltrelemeViewModel.cs" />
     <Compile Include="Models\UrunlerMView.cs" />
     <Compile Include="Models\UrunView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Views\Kullanici\Detaylar.cshtml" />
     <Content Include="Views\Kullanici\UrunuListeyeEkle.cshtml" />
     <Content Include="Views\Kullanici\AlisverisBaslasin.cshtml" />
+    <Content Include="Views\Kullanici\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

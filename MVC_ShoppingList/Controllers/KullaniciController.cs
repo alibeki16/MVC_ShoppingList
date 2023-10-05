@@ -68,7 +68,7 @@ namespace MVC_ShoppingList.Controllers
                 {
                     list_id = selectedListName, // Seçilen alışveriş listesinin list_id'si
                     product_id = product_id, // URL'den gelen product_id
-                                             // Diğer özellikleri doldurun: list_owner_id, is_shopping_started, is_shopping_completed vb.
+                                             
                     quantity = quantity,
                     description = description
                 };
@@ -115,7 +115,6 @@ namespace MVC_ShoppingList.Controllers
                 // Alışveriş listesi bulunamadı, hata işlemleri burada ele alınabilir
                 return RedirectToAction("DenemeSayfasi");
             }
-            // Alışveriş listesine ait ürünleri sorgulayın
             var shoppingListItems = db.shopping_list_items
                 .Where(x => x.list_id == id)
                 .ToList();
@@ -136,7 +135,6 @@ namespace MVC_ShoppingList.Controllers
                 // Alışveriş listesi bulunamadı, hata işlemleri burada ele alınabilir
                 return RedirectToAction("DenemeSayfasi");
             }
-            // Alışveriş listesine ait ürünleri sorgulayın
             var shoppingListItems = db.shopping_list_items
                 .Where(x => x.list_id == id)
                 .ToList();
@@ -148,6 +146,19 @@ namespace MVC_ShoppingList.Controllers
             };
 
             return View(viewModel);
+        }
+        public ActionResult Search(string aramaTerimi, int? kategori)
+        {
+            var sonuclar = db.ab_product.AsQueryable();
+            if (!string.IsNullOrEmpty(aramaTerimi))
+            {
+                sonuclar = sonuclar.Where(p => p.product_name.Contains(aramaTerimi));
+            }
+            if (kategori.HasValue && kategori.Value > 0)
+            {
+                sonuclar = sonuclar.Where(p => p.product_fk_cat == kategori.Value);
+            }
+            return View(sonuclar.ToList()); // KATEGORİYE GÖRE ARAMADA CİDDİ SIKINTI VAR :(
         }
         //---------------------------------------------
         public ActionResult Listelerim()
